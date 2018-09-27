@@ -519,9 +519,9 @@ echo ""
 echo "Your NEXTCLOUD will now be installed silently - please be patient ..."
 echo ""
 sudo -u www-data php /var/www/nextcloud/occ maintenance:install --database "mysql" --database-name "$NEXTCLOUDDBNAME"  --database-user "$NEXTCLOUDDBUSER" --database-pass "$NEXTCLOUDDBPASSWORD" --admin-user "$NEXTCLOUDADMINUSER" --admin-pass "$NEXTCLOUDADMINUSERPASSWORD" --data-dir "/var/nc_data"
-declare -l YOURSERVERNAME
-###read and store the current hostname in lowercases
-YOURSERVERNAME=$(hostname)
+###read and store domain name to use in lowercases
+read -p "Enter your domain for Nextcloud (lowercase, e.g. www.nextcloud.com): " YOURSERVERNAME
+echo "Your domain for Nextcloud: "$YOURSERVERNAME
 sudo -u www-data cp /var/www/nextcloud/config/config.php /var/www/nextcloud/config/config.php.bak
 sudo -u www-data php /var/www/nextcloud/occ config:system:set trusted_domains 0 --value=$YOURSERVERNAME
 sudo -u www-data php /var/www/nextcloud/occ config:system:set overwrite.cli.url --value=https://$YOURSERVERNAME
